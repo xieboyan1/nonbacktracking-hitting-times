@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>非回溯游走首达时间 · 投稿前核查</title>
+<style>
+:root{color-scheme:light}*{box-sizing:border-box}body{max-width:860px;margin:48px auto 72px;padding:0 26px;font:16px/1.85 "Microsoft YaHei","PingFang SC",sans-serif;color:#243039;background:white}
+h1,h2{font-family:"Noto Serif CJK SC","Songti SC",SimSun,serif;color:#152a36;line-height:1.4}h1{font-size:2.05rem;margin:0 0 .2em}h2{font-size:1.45rem;margin:1.6em 0 .65em}
+.date{color:#57646b;font-size:.9em;margin:.15em 0 1em}.lead{border-left:3px solid #28665d;padding:.2em 0 .2em 1em;font-size:1.08em}
+table{width:100%;border-collapse:collapse}th,td{vertical-align:top;text-align:left;padding:.45em .65em;border-bottom:1px solid #d8dfe0}th{color:#1b4a49;background:#edf3f2}td:first-child{white-space:nowrap}
+.math{font-family:Cambria,Georgia,"Times New Roman",serif;font-size:1.04em}a{color:#135b73;text-underline-offset:3px}code{color:#234854}sup,sub{line-height:0}p{margin:.7em 0}li+li{margin-top:.5em}
+@media(max-width:600px){body{padding:0 15px;margin-top:25px;font-size:15px}table{font-size:.93em}th,td{padding:.4em}td:first-child{white-space:normal}}
+@media print{body{font-size:10pt;margin:0;max-width:none}h2{break-after:avoid}tr{break-inside:avoid}a{color:inherit}}
+</style>
+<main>
+<h1>23 点反例能否推翻原文推论？</h1>
+<p class="date">投稿前核查记录 · 2026 年 11 月 25 日</p>
+<p class="lead">可以。Altisen 等人比较的是从同一指定顶点、以空记忆出发、首次命中同一指定目标的期望步数。逐项按其规则计算，非回溯游走比普通游走多用 <span class="math">16/143</span> 步。核查中发现一项直接的既有结果：Breen 等人的附录已经给出非回溯一侧的公式。英文稿已据此界定贡献。</p>
+
+<h2>原文的每一项假设</h2>
+<table><thead><tr><th>核查项</th><th>原文要求与反例对应</th></tr></thead><tbody>
+<tr><td>图</td><td>简单、有限、连通、无向，至少两个顶点。取编号 0 至 22 的圈，加边 {0,8}。全图有 24 条边，两个顶点的度为 3，余下 21 个顶点的度为 2。</td></tr>
+<tr><td>适用图类</td><td>定理 4 要求图为 <i>m</i>-free。原作者明确指出每个图都是 1-free，再据此推出推论 5。本例取 <i>m</i>=1。</td></tr>
+<tr><td>起点与记忆</td><td>起点固定为 2，两种游走都从空表开始。第一步选 1 或 3，各以概率 1/2。没有指定进入起点的前一条边。</td></tr>
+<tr><td>转移</td><td>FIFO<sub>0</sub> 保持空表，每步均匀选邻点。FIFO<sub>1</sub> 保留刚离开的顶点，每步均匀选其余邻点。本例的最小度为 2，全体邻点均在表中的回退条款不会触发。</td></tr>
+<tr><td>目标与计时</td><td>目标是 1，从 2 首次到达 1 即停止，最后一步计入。会议稿的首次到达与技术报告推论 9 的正首次到达在 2≠1 时完全相同。</td></tr>
+<tr><td>量词与方向</td><td>推论 5 对每一对顶点、每一个长度为 0 或 1 的更新规则断言 FIFO<sub>1</sub> 的期望更小或相等，故可取比较规则 FIFO<sub>0</sub>。结论没有对起点、目标或图取平均。</td></tr>
+</tbody></table>
+<p>逐句依据为会议论文的 Verimag 作者存档本第 2–4 节，尤其是 PDF 第 8 页推论 5；以及技术报告第 12 页推论 9。Springer 公开页面核对了论文集、年份和页码，会议论文的推论编号按作者存档本引用。<a href="https://www-verimag.imag.fr/PUBLIS/uploads/cizib1712.pdf#page=8">会议论文作者本</a> · <a href="https://www-verimag.imag.fr/TR/TR-2012-6.pdf#page=12">技术报告</a> · <a href="https://doi.org/10.1007/978-3-642-31104-8_22">出版社记录</a></p>
+
+<h2>数值能否独立复算？</h2>
+<table><thead><tr><th>如何选择起点</th><th>非回溯</th><th>普通游走</th></tr></thead><tbody>
+<tr><td>固定为 2，目标为 1</td><td>13</td><td>1843/143</td></tr>
+<tr><td>以概率 <i>d</i><sub>i</sub>/48 选择，目标仍为 1</td><td>1087/72</td><td>51907/858</td></tr>
+</tbody></table>
+<p>手算时，把图看作两端点间长度为 1、8、15 的三条路。非回溯游走若第一步朝目标走，总步数为 1；若朝另一侧走，按端点之间额外穿行次数的几何分布求和，条件均值为 25。因此首达时间均值是 (1+25)/2=13。普通游走把目标 1 接地，在顶点 2 注入单位电流，端点 0、8 及起点 2 的电势依次为 16/143、31/143、127/143。由接地拉普拉斯矩阵的对称性，所求均值等于各顶点按度数加权的电势之和，即 (7×127+22×31+17×16)/143=1843/143。</p>
+<p>两份 Python 程序独立构造这张图。第一份从三条路的边表出发，对吸收方程作有理数消元。第二份从圈和弦出发，给空记忆设置独立初态，以整数矩阵幂和牛顿恒等式求生存概率生成函数，并检查每个瞬态的首步方程残差为零。两者都得到上表首行。第二行把起点已经是目标的情形计作 0 步。23 也没有最小性含义；随附消元程序另给出一张 10 点、五条弦的反例。</p>
+
+<h2>原证明错在何处？</h2>
+<p>技术报告第 6 节试图从停在首次到达目标的普通游走中消去回退，随后将剩下的随机路径认作 FIFO<sub>1</sub> 路径。三角形 <i>x,z,a</i> 已足以检验这一步。到达 <i>a</i> 之前，路径只能在 <i>x,z</i> 之间交替；以一步 <i>x→a</i> 为化简结果的概率为 1/2+1/8+1/32+⋯=2/3。真正的 FIFO<sub>1</sub> 第一跳直接到 <i>a</i> 的概率为 1/2。三角形检验的是路径分布。23 点图才直接给出期望不等式的严格反例。<a href="https://www-verimag.imag.fr/TR/TR-2012-6.pdf#page=21">技术报告第 6 节</a></p>
+<p>会议稿证明末行的不等号与正式定理的方向相反。判读时另核对了推论 5 的公式、其上一段正文、同年报告幻灯片第 16 页及 Lafourcade 的 habilitation 第 137 页推论 21，四处均表示 FIFO<sub>1</sub> 的期望较小。会议稿的花图命题 6 明确排除了 FIFO<sub>1</sub>，故未预先给出此反例。<a href="https://www-verimag.imag.fr/PUBLIS/uploads/cizib1712.pdf#page=8">定理与推论</a> · <a href="https://www-verimag.imag.fr/~devismes/WWW/presentation/sirocco2012.pdf">会议报告</a> · <a href="https://sancy.iut.uca.fr/~lafourcade/PAPERS/PDF/hdr.pdf">作者的 habilitation</a></p>
+
+<h2>是否已有相同纠正？</h2>
+<p><strong>截至核查日，在能查到的公开记录中未找到明确纠正同一推论、或在同一初始约定下明确指出此逐点反转的文献。</strong> 检索覆盖论文与技术报告题名、作者主页、英法文术语、arXiv、HAL、Zenodo 及前向引用。Crossref 的反向更新查询返回 0 条。Semantic Scholar 列出 7 篇直接引用；逐条筛查了可得的原文、摘要或书目。OpenCitations 的 2 条已包含在其中。OpenAlex 计数为 8，当时公开接口的限流使其名单未能完整取得。各库的数量不能相加；部分论文只能核查题名或摘要。这些限制保留在查新日志中。<a href="https://api.crossref.org/works?filter=updates:10.1007%2F978-3-642-31104-8_22&amp;rows=1">Crossref 反向更新查询</a> · <a href="https://openalex.org/W1521620591">OpenAlex 原记录</a></p>
+<ol>
+<li><strong>Breen、Kempton、Knudson、Shumway 已经算出 13。</strong> 其附录 A.1 情形 (2) 研究同一带弦圈。令其参数 <i>n</i>=23、<i>k</i>=9，按作者沿短圈的编号从 7 走到 8，原式就给出 13。该文还研究同一图族的 Kemeny 常数。本稿可主张的是同一起终点的普通游走比较、由此得到的反例、无界比值，以及一般图上的平均与等号结论。<a href="https://arxiv.org/html/2510.06650v1#A1.SS1">原附录</a> · <a href="https://arxiv.org/html/2510.06650v1#S5">原问题</a> · <a href="https://doi.org/10.1016/j.laa.2026.02.034">期刊记录</a></li>
+<li>Fasino、Tonetto、Tudisco 已建立二阶游走的首达方程，并在实际网络上计算对均匀起点取平均的可达时间。Breen 等人早先的另一篇论文比较有向边状态空间的 Kemeny 常数。Neal 证明的是避免回退对平稳时间平均估计量渐近方差的影响。三项先行结果与本稿的区别在于起点分布、停止对象或比较量。<a href="https://doi.org/10.1017/S0956792522000213">二阶首达方程</a> · <a href="https://doi.org/10.1002/rsa.21144">边空间 Kemeny 常数</a> · <a href="https://arxiv.org/abs/math/0407281">渐近方差比较</a></li>
+<li>对原作者两项相近研究作了全文核对。2011 年法国 AlgoTel 论文在允许的邻点间采用度数加权抽样，实验统计到汇点的平均表现。2014 年 Gerbaud 等人确实构造了普通游走更快的图，同时比较了最大首达均值和指定根的首达均值；其另一种游走始终按邻点度数的负二分之一次幂抽样，无前驱记忆。也核查了直接引用原文的两篇法国学位论文全文。<a href="https://perso.limos.fr/~palafour/PAPERS/tlm-tlcn-simu-french.pdf">2011 年论文</a> · <a href="https://home.mis.u-picardie.fr/~devismes/WWW/rapports/deg_biased.pdf">2014 年论文</a> · <a href="priority_search.txt">完整查新日志与可复现查询</a></li>
+</ol>
+
+<h2>英文稿保留了哪些可验证的主张？</h2>
+<p>带弦圈族的长度取 1、<i>p</i>、<i>p</i>²，且起点和目标始终相邻。非回溯均值与普通均值之比渐近为 <i>p</i>/8，故原命题失效的程度可任意大。对固定目标、按度数选起点，方向则始终成立。恰当的取等条件是目标的每个邻点都是叶子。对目标再按度数平均，除仅有一条边的图之外均严格。</p>
+<p>在最小度至少为 2 的连通非圈图上，稿件还证明了两个顶点 Kemeny 常数的次序，给出等号的充分必要条件，并用条件返回时间的方差控制差值。它们分别回答 Breen 等人预印本第 5 节的问题 2、为问题 3 给出界；上述严格平均比较回答问题 4。稿件不声称给出问题 1 所求的图分类，或证明所得界对所有图都是最优的。<a href="https://arxiv.org/html/2510.06650v1#S5">问题 1–5 的原始表述</a></p>
+<p>这三项一般结论以及 23 点反例均有 Lean 4.19.0 形式证明。一般图的证明从图的邻接关系和空记忆首步出发，处理度为 1 的强制回退，并证明截断期望收敛。Kemeny 部分检查了基本矩阵的逆、两种有向边编号下的压缩迹、长链计数和返回时间方差的归一化。<a href="../lean/README.txt">Lean 源码与复查包</a> · <a href="../lean/verification.txt">核验记录</a></p>
+<p>稿件采用通用数学期刊格式，并披露 AI 在推导、查新、形式证明和写作中的作用。正式投递前仍需由实际署名作者认可证明、补全作者与联系信息，再按所选期刊的要求办理投稿。</p>
+</main>
+</html>

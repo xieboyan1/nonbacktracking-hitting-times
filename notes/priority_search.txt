@@ -1,0 +1,118 @@
+Prior-art audit | 25 November 2026, America/Los_Angeles
+
+Question screened: Has a public source already pointed out failure of the
+FIFO1-versus-simple comparison for a specified ordered vertex pair, with
+an empty initial list, in Altisen--Devismes--Gerbaud--Lafourcade (ADGL)?
+Also screened: explicit solutions to Breen et al. Questions 2 and 4.
+
+Primary records
+  ADGL SIROCCO paper: https://doi.org/10.1007/978-3-642-31104-8_22
+  Public author manuscript: https://www-verimag.imag.fr/PUBLIS/uploads/cizib1712.pdf
+  Full technical report, Corollary 9: https://www-verimag.imag.fr/TR/TR-2012-6.pdf
+  Coauthor's 2012 lecture, slide 16: https://www-verimag.imag.fr/~devismes/WWW/presentation/sirocco2012.pdf
+  Lafourcade's 2012 habilitation, sec. 10.4, Corollary 21 (printed p. 137): https://sancy.iut.uca.fr/~lafourcade/PAPERS/PDF/hdr.pdf
+  Publication list: https://www-verimag.univ-grenoble-alpes.fr/Karine-Altisen-s-Publications.html
+  Breen et al. journal: https://doi.org/10.1016/j.laa.2026.02.034
+  Preprint: https://arxiv.org/html/2510.06650v1
+
+Reproducible metadata endpoints (public, no key)
+  For each DOI, https://api.crossref.org/works/{DOI} (is-referenced-by-count, relation, update-to).
+  Reverse correction query: https://api.crossref.org/works?filter=updates:10.1007%2F978-3-642-31104-8_22&rows=1
+  https://api.semanticscholar.org/graph/v1/paper/DOI:{DOI}?fields=title,year,citationCount,citations.title,citations.abstract,citations.openAccessPdf,citations.externalIds
+  https://api.openalex.org/works/https://doi.org/{DOI} (cited_by_count)
+  https://api.openalex.org/works?filter=cites:W1521620591 (ADGL; 429 shared quota exhausted)
+  https://api.openalex.org/works?filter=cites:W7131891167 (Breen; same quota)
+  https://api.opencitations.net/index/v2/citations/doi:{DOI}
+  HAL thesis search: https://api.archives-ouvertes.fr/search/?q=halId_s:(tel-00910394%20OR%20tel-00862710)&fl=halId_s,fileMain_s,nntId_s,uri_s&wt=json
+
+Counts at retrieval, first ADGL then Breen: Semantic Scholar 7 and 1;
+OpenAlex 8 and 1; Crossref 3 and 0; OpenCitations 2 and 0. Counts are not
+additive. OpenAlex merges the 2025 preprint with the 2026 DOI. The reverse
+Crossref updates filter returned 0; the original record only links its
+parent proceedings. A missing Crossref relation cannot exclude an unlinked
+or informal correction. The 7 identifiable Semantic Scholar citing works
+for ADGL and both OpenCitations results were screened; selected full texts,
+with bibliographic records/abstracts where full text was inaccessible.
+
+ADGL direct citing works in Semantic Scholar
+  Lafourcade, Computer Aided Security ... (2012). Explicitly repeats pairwise
+    ordering in Cor. 21, and distinguishes counterexamples for other rules.
+  Erdene-Ochir (2013), wireless routing resilience thesis (HAL tel-00862710);
+    Mouradian (2013), verification of sensor network protocols (HAL tel-00910394).
+    Checked both full texts: Erdene-Ochir sec. 2.3.2, ref. [91], describes
+    an improvement in average route length; Mouradian cites finite expected
+    travel time and the unbounded worst case. Neither identifies the reversal.
+    INRIA lists both: https://radar.inria.fr/report/2013/urbanet/bibliography.html
+  Jabeur et al., Survey on sensor holes (2013), https://doi.org/10.1016/j.procs.2013.06.151
+  Beeler et al., Deterministic walks with choice (2014), author preprint
+    https://people.math.sc.edu/cooper/drwc.pdf ; deterministic local-memory
+    walks on Cayley graphs. https://doi.org/10.1016/j.dam.2013.08.031
+  Erdene-Ochir et al., smart-meter routing resilience (2014), https://doi.org/10.1109/PIMRC.2014.7136474
+  Sun et al., game-theoretic community detection (2019), https://doi.org/10.1109/BIGCOM.2019.00038
+    and associated journal article https://doi.org/10.26599/TST.2020.9010017
+
+Other works requiring a distinction
+  Altisen--Devismes--Lafourcade--Ponsonnet, AlgoTel 2011, Routage par
+    marche aleatoire a listes tabous, HAL hal-00588086. Sec. 2 restricts
+    the degree-biased YRW kernel to permitted neighbours. Sec. 3, Fig. 3,
+    averages simulated travel to a sink in random unit-disc networks and
+    reports reduced hitting times with one-entry memory. Their unfavorable
+    result (Fig. 4) concerns byte volume. No fixed-pair counterexample.
+    https://perso.limos.fr/~palafour/PAPERS/tlm-tlcn-simu-french.pdf
+  Gerbaud--Altisen--Devismes--Lafourcade, Comparison of mean hitting times
+    for a degree-biased random walk, Discrete Applied Mathematics 170
+    (2014), 104-109, https://doi.org/10.1016/j.dam.2014.01.021 . This
+    memoryless kernel chooses each neighbour v with weight d(v)^(-1/2).
+    The examples compare maxima over vertex pairs and, separately, means
+    from individual vertices to a distinguished root. Neither 'tabu' nor
+    'backtrack' occurs in the author full text. No FIFO1 correction.
+    https://home.mis.u-picardie.fr/~devismes/WWW/rapports/deg_biased.pdf
+  ADGL's own Proposition 6 gives counterexamples for other lists/rules,
+    excluding FIFO1. Their coauthor's habilitation repeats that distinction.
+  Breen et al. Appendix A.1(2) already computes the NB hitting time on the
+    exact graph class. In their notation n=p+q, k=p+1, start label p-1 and
+    target label p (around the p-edge path from B). Their formula gives
+    (4p+3q+1)/6. They compare stationary averages, and the appendix does
+    not point out the sign reversal for a fixed pair. Credit the overlap.
+  Fasino--Tonetto--Tudisco: second-order hitting equations, stationary
+    returns and numerical target access averages. https://arxiv.org/abs/2105.14438
+  Breen et al., RSA (2023): edge-space Kemeny comparisons, with exceptions
+    in a different state space. https://doi.org/10.1002/rsa.21144
+  Tishby et al.: first hitting defined by self-intersection/dead end,
+    https://arxiv.org/abs/1609.08375 . Matsuo--Kawagishi--Ohsaki, random
+    regular/configuration-model graphs, https://doi.org/10.1587/comex.2022XBL0146 .
+  Neal, nonbacktracking and asymptotic variance for MCMC estimators,
+    https://arxiv.org/abs/math/0407281 . A general and closely related
+    comparison tool, not an explicit correction to ADGL.
+  Bodirsky--Ciardo--Kang, the single Semantic Scholar citation of the
+    Breen paper, is about adding/removing edges in ordinary random graphs,
+    https://arxiv.org/abs/2610.24143 . A public repository claims a
+    counterexample to Question 5 only, a different asymptotic growth claim,
+    https://huggingface.co/datasets/PureOne/evie-cubic-nonbacktracking-kemeny .
+
+Search families (exact-title and independent terminology)
+  "Analysis of Random Walks Using Tabu Lists" with erratum, corrigendum,
+    correction, counterexample, corollary, FIFO, hitting times; authors
+    separately, author publication lists, exact title and 2012 report.
+  "tabu" "FIFO1" hitting times, non-backtracking or nonbacktracking
+    random walk pairwise hitting time slower/larger than simple random
+    walk; fixed target, mean first-passage time, chord, theta graph.
+  Altisen Devismes Gerbaud Lafourcade liste tabou / contre-exemple /
+    temps d'atteinte / correction / erratum / marche sans retour.
+  Breen Kempton Knudson Shumway "Question 4" / "Question 2"; locally
+    uniform return time; non-backtracking vertex-space Kemeny constant
+    conjecture / solution / counterexample; first-hitting times from
+    equilibrium, asymptotic variance, Neal, Peskun.
+  Search engine including site-restricted arXiv, HAL, Zenodo, and
+    MathOverflow; publisher/author pages and publicly available preprints.
+
+Conclusion limited to located records: no explicit earlier correction or
+publication making this specific fixed-pair reversal was located. No
+public solution to Breen Questions 2 and 4 was located in the searches.
+Index coverage, the eighth OpenAlex citation, and documents accessible
+only by bibliographic metadata prevent an absolute priority claim.
+Springer's chapter lists 3 citations. Its page and the public OpenAIRE,
+Dimensions and OpenAlex web interfaces did not identify the residual
+OpenAlex item. OpenAlex's per-year counts are 2012 (1), 2013 (4), 2014
+(1), 2020 (1), 2021 (1); sources differ in version/date coverage, so
+the unmatched work cannot be identified solely by comparing these dates.
