@@ -1,0 +1,74 @@
+Lean (version 4.19.0, x86_64-w64-windows-gnu, commit 6caaee842e94, Release)
+mathlib v4.19.0 | warnings treated as errors
+
+Witness.lean  sha256=ee565ef55e116fe11d744874febfeee986a7c545cf95ce870443919c55f2e3de
+'Chord23.uniform_moves' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Chord23.connected' depends on axioms: [propext, Quot.sound]
+'Chord23.records_previous' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Chord23.witness' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Chord23.refutes_pointwise' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Chord23.word_probability' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Chord23.stationary_witness' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+Stationary.lean  sha256=591c17dd8c7bca40a0077baf4f12ba4bcc9a0b460749b3e953b9ec7336fd4faf
+'Stationary.fixed_target' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Stationary.comparison' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Stationary.equality_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+Hitting.lean  sha256=ec3eefecf0c9a75fa8bc5fe28120af7819c76d52f02370a6463a87129860009c
+
+
+Walks.lean  sha256=685ed389677aae99068993165055c0e328b84ed9817b60f116b389a5208dd254
+'Walks.fixed_target_comparison' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Walks.stationary_limits' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+Branch.lean  sha256=21f5f3c622c5f22cb7955fde9a2d13fa314e66253d37637a49c4997a610dec66
+
+
+Theta.lean  sha256=62d4604ed37a895b133f32a24b41464bf2bceac0f7ff21c73a64a4ec566a9810
+'Theta.means' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Theta.ratio_unbounded' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Theta.square_family' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+Fundamental.lean  sha256=233b253e5a4a535f016c8b608eafd8f0b23e77c766f02042b4499eae1abc0a5e
+'Fundamental.fundamental_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+Gap.lean  sha256=bd40af658a657ad8923409699275c6ef6c95839dac90abf5b3ad39020c971a4b
+
+
+GapData.lean  sha256=6e5e7a85d0f4e76ad3d7f0f22d8a5ead52181e9991aaf60fd62938a67d49964d
+
+
+Corridors.lean  sha256=72d2d4d92584d52aa596b5c934b3a719f2c43b880b511b907bd1ee1b2ddcba12
+
+
+Bounds.lean  sha256=5610031f7f649f8a8fbbacdffc83f8c8ff00267d72ab5395e99f98e1ad874f24
+
+
+Kemeny.lean  sha256=3139d6286d29d5907e8681446b5f95a96fbb33d1d2a17b210e08bff9e69a4b96
+'Kemeny.variance_bounds' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Kemeny.min_degree_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Kemeny.comparison_and_equality' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+Strict.lean  sha256=fdbf241524da054a22365ab02b8f038c0df8fd5f198acffc942daf553ab9fa2f
+'Kemeny.double_average' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+Forward.lean  sha256=2b030db55f33266c8d2cd8a783cc3322f04927bfcb355e8f630263b5b833eb92
+'Forward.valid_inverse' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Forward.projected_trace' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+Nonbacktracking.lean  sha256=3f8db87df0311d23ed1f300da80d7a3c13e46aecddc6fcca7b9085b7dda3a545
+'Walks.fixed_target_comparison' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Walks.stationary_limits' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Kemeny.double_average' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Theta.means' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Theta.square_family' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Kemeny.comparison_and_equality' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Kemeny.variance_bounds' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Kemeny.min_degree_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Forward.valid_inverse' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Forward.projected_trace' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Chord23.witness' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Chord23.stationary_witness' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+All 15 source modules checked. All 12 final axiom reports passed.
