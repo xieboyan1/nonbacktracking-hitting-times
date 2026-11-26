@@ -1,0 +1,4 @@
+* text=auto eol=lf
+*.pdf binary
+# Preserve the original CRLF bytes covered by the published proof transcript.
+lean/Witness.lean -text
