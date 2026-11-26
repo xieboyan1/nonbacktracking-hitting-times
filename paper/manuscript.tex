@@ -1,0 +1,439 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newcommand{\nb}{\mathrm{nb}}
+\newcommand{\sr}{\mathrm{s}}
+\newcommand{\kh}{K_{\mathrm{hit}}}
+\newcommand{\kp}{K_{\mathrm{proj}}}
+\newcommand{\ks}{K_{\mathrm{SRW}}}
+\newcommand{\one}{\mathbf 1}
+\newcommand{\ip}[2]{\langle #1,#2\rangle}
+\newcommand{\var}{\operatorname{Var}}
+\newcommand{\ran}{\operatorname{ran}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\E}{\mathbb E}
+\setlength{\emergencystretch}{1em}
+\title{Vertex hitting times for non-backtracking walks\\
+       with fixed and stationary starts}
+% Supply author names, affiliations and corresponding-author contact at submission.
+\author{}
+\date{}
+\makeatletter
+\renewcommand{\maketitle}{%
+  \begin{center}
+    {\LARGE\@title\par}
+    \ifx\@author\@empty\else
+      \vspace{0.6em}{\large\begin{tabular}[t]{c}\@author\end{tabular}\par}
+    \fi
+  \end{center}\vspace{0.4em}}
+\makeatother
+\begin{document}
+\maketitle
+\begin{abstract}
+Suppressing immediate reversals can increase the mean time to hit a prescribed
+neighbour. A cycle on 23 vertices with one chord gives mean hitting times
+$13$ for non-backtracking walk and $1843/143$ for simple random walk,
+contradicting a pointwise comparison of Altisen, Devismes, Gerbaud and
+Lafourcade. On theta graphs the ratio can grow without bound. For a starting
+vertex sampled with probability proportional to its degree, we prove the opposite inequality for
+every fixed target and characterize equality, with forced reversal at leaves.
+We also compare the two vertex Kemeny constants of Breen, Kempton, Knudson
+and Shumway. Their difference is nonnegative and vanishes precisely when
+the conditional mean return time at each vertex is independent of the first
+step. The supplementary Lean~4 development verifies these results and the
+two-sided bounds for the difference of the vertex Kemeny constants.
+\end{abstract}
+\noindent\textit{Keywords.} Non-backtracking walk, hitting time, Kemeny's constant,
+tabu walk, graph Laplacian. \quad \textit{MSC 2020.} 05C81, 60J10.
+
+\section{Two ways to choose a starting vertex}
+Let $G=(V,E)$ be a finite connected simple undirected graph with at least two
+vertices, $m=|E|$, $d_i=\deg(i)$ and $\pi_i=d_i/(2m)$. From a prescribed
+vertex, both walks choose the first neighbour uniformly. Simple random walk
+(SRW) uses this rule at every step. The non-backtracking walk (NB) chooses
+uniformly among neighbours other than the preceding vertex, with forced
+reversal at a leaf. Write $H^\bullet_{ia}=\E_i T_a$ for the mean first
+hitting time of $a$, where $T_a=\inf\{n\ge0:X_n=a\}$ and
+$\bullet\in\{\nb,\sr\}$. Define
+\[
+ t^\bullet_a=\sum_i\pi_i H^\bullet_{ia},\qquad
+ \kh=\sum_a\pi_a t^\nb_a,\qquad \ks=\sum_a\pi_a t^\sr_a .
+\]
+Here $\ks$ is the usual Kemeny constant of SRW. An initial visit counts as
+a hit, so the term with $i=a$ is zero in both averages.
+
+Altisen et al.~\cite[Cor.~5, author version]{ADGL} assert that their
+one-entry FIFO tabu walk reaches any specified target at least as fast in
+expectation as any rule with memory of length zero or one. The zero-entry
+rule is SRW. We exhibit an ordered pair for which this inequality is reversed.
+The reversal persists on a family of maximum degree three, with an
+unbounded ratio of the two expectations.
+
+\begin{theorem}\label{thm:start}
+For every $a\in V$, one has $t^\nb_a\le t^\sr_a$. Equality holds precisely
+when every neighbour of $a$ is a leaf. Consequently $\kh<\ks$ unless
+$G=K_2$, in which case the walks coincide.
+\end{theorem}
+The initial law in this theorem is essential. Both the reversal at a fixed
+start and the strict stationary-start improvement occur for the \emph{same}
+target in the example below. Fasino, Tonetto and Tudisco developed directed-edge
+equations for second-order hitting times and compared uniform-start averages
+on three empirical networks \cite[Sec.~6]{FTT}. Neal's comparison for
+walks that suppress reversals concerns the asymptotic variance of
+time averages along a stationary trajectory \cite{Neal}. Breen et al.~\cite{BKKS}
+ask for the ordering of the degree-weighted vertex constants.
+Theorem~\ref{thm:start} answers Question~4 of their preprint.
+Section~\ref{sec:trace} gives a converse to their equality criterion
+(Question~2) and bounds their gap (Question~3). Edge-space Kemeny constants
+use an oriented edge as the target \cite{BFG}.
+
+\section{A counterexample with adjacent start and target}\label{sec:theta}
+Join $A$ and $B$ by three internally disjoint paths of lengths $1,p,q$,
+where $p\ge3$ and $q\ge2$. Denote this graph by $\Theta(1,p,q)$. On the
+$p$-path the first two vertices after $A$ are $a$ and $x$, in this order.
+The walker starts at $x$ and aims for $a$. Figure~\ref{fig:witness} shows
+the case $(p,q)=(8,15)$.
+
+\begin{figure}[htbp]
+\centering
+\setlength{\unitlength}{1pt}
+\begin{picture}(246,63)(-19,-2)
+\qbezier(4,24)(104,66)(204,24)
+\qbezier(4,24)(104,-18)(204,24)
+\put(4,24){\line(1,0){200}}
+\put(4,24){\circle*{3.8}}
+\put(204,24){\circle*{3.8}}
+\put(29,33.19){\circle*{2.8}}
+\put(54,39.75){\circle*{2.8}}
+\put(79,43.69){\circle*{2.8}}
+\put(104,45){\circle*{2.8}}
+\put(129,43.69){\circle*{2.8}}
+\put(154,39.75){\circle*{2.8}}
+\put(179,33.19){\circle*{2.8}}
+\put(17.33,18.77){\circle*{2.8}}
+\put(30.67,14.29){\circle*{2.8}}
+\put(44,10.56){\circle*{2.8}}
+\put(57.33,7.57){\circle*{2.8}}
+\put(70.67,5.33){\circle*{2.8}}
+\put(84,3.84){\circle*{2.8}}
+\put(97.33,3.09){\circle*{2.8}}
+\put(110.67,3.09){\circle*{2.8}}
+\put(124,3.84){\circle*{2.8}}
+\put(137.33,5.33){\circle*{2.8}}
+\put(150.67,7.57){\circle*{2.8}}
+\put(164,10.56){\circle*{2.8}}
+\put(177.33,14.29){\circle*{2.8}}
+\put(190.67,18.77){\circle*{2.8}}
+\put(29,33.19){\circle{5.8}}
+\put(54,39.75){\circle{5.8}}
+\put(0,25){\makebox(0,0)[r]{\scriptsize $0$}}
+\put(208,25){\makebox(0,0)[l]{\scriptsize $8$}}
+\put(26,39){\makebox(0,0)[b]{\scriptsize $a=1$}}
+\put(54,46){\makebox(0,0)[b]{\scriptsize $x=2$}}
+\end{picture}
+\caption{The 23-vertex witness. The upper and lower paths have eight and
+fifteen edges. The chord joins $0$ and $8$.}\label{fig:witness}
+\end{figure}
+
+\begin{proposition}\label{prop:theta}
+For this ordered pair,
+\[
+ H^\nb_{xa}=\frac{4p+3q+1}{6},\qquad
+ H^\sr_{xa}=p-2+\frac{(2q+1)p+3q^2+4q+2}{(p+1)q+p}.
+\]
+For $(p,q)=(8,15)$, $H^\nb_{xa}-H^\sr_{xa}=16/143>0$.
+Along $q=p^2$, $H^\nb_{xa}/H^\sr_{xa}\sim p/8$.
+\end{proposition}
+The graph is a cycle with one chord. For the witness and the asymptotic
+family, the NB expression also follows from \cite[App.~A.1, case~(2)]{BKKS}:
+take $n=p+q$, $k=p+1$ and label the $p$-path from $B=1$ to $A=k$.
+The start and target then have labels $p-1$ and $p$, respectively.
+We give both calculations to make the pointwise comparison self-contained.
+
+\begin{proof}
+Write $s=(1+q)/2$ for the mean length of a uniformly chosen bypass between
+$A$ and $B$ (the single edge and the $q$-path are the bypasses).
+For NB, the first step hits $a$ with probability $1/2$. In the other
+direction it takes $p-2$ steps from $x$ to $B$ and then a mandatory,
+uniformly chosen bypass to $A$. At each subsequent visit to a terminal
+the walker either takes the target path or uses the other bypass, with
+equal probabilities. The number $N$ of additional bypass crossings has
+$\Pr(N=j)=2^{-j-1}$, so $\E N=1$ and $\Pr(N\text{ even})=2/3$.
+Conditional on $N$, each bypass crossing has mean length $s$: the
+initial bypass is uniform and subsequent bypasses alternate. The terminal
+leg to $a$ has length $1$ for even $N$ and $p-1$ for odd $N$. Thus
+\[
+ 2H^\nb_{xa}=1+(p-2)+2s+(p+1)/3 .
+\]
+
+For SRW, ground $a$ and inject a unit current at $x$, giving voltages
+$V_i$ in the unit-resistance network. If $L_a$ is the grounded
+combinatorial Laplacian, then $L_a V=e_x$ and
+$L_a H^\sr_{\cdot a}=(d_i)_{i\ne a}$ by the first-step equations.
+Symmetry of $L_a$ yields $H^\sr_{xa}=\sum_i d_i V_i$.
+The bypasses have parallel resistance $t=q/(q+1)$. The detour from
+$x$ to $a$ through $B$ and $A$ has resistance $p-1+t$, in parallel
+with the direct edge $xa$. Its current is $I=1/(p+t)$, hence
+\[
+ V_A=I,\qquad V_B=(1+t)I,\qquad V_x=(p-1+t)I .
+\]
+Each edge contributes the sum of its endpoint voltages to $\sum_i d_iV_i$.
+On a corridor of $\ell$ edges the voltages interpolate linearly, so the
+corridor contributes $\ell$ times the sum of its two terminal voltages.
+Adding the corridors gives
+\[
+ H^\sr_{xa}=(p-1)V_x+(p+q-1)V_B+(q+2)V_A.
+\]
+Substitution gives the stated formula. When $q=p^2$, the two means are
+asymptotic to $p^2/2$ and $4p$, respectively.
+\end{proof}
+
+For the numerical witness take the cycle $0,1,\ldots,22,0$ and add
+$\{0,8\}$. Thus $A=0$, $B=8$, $x=2$ and $a=1$. The graph has
+24 edges, two vertices of degree three and 21 of degree two.
+Section~2 of \cite{ADGL} starts the walk with an empty list. Its update
+rule in Section~3 makes $\mathrm{FIFO}_1$ store exactly the preceding
+vertex. The fallback when all neighbours are taboo never occurs here.
+Every graph is 1-free in the terminology of \cite[Sec.~4]{ADGL}.
+Hence this case satisfies the graph, memory and initialization hypotheses
+of Corollary~5. The positive-time formulation in \cite[Cor.~9]{TR}
+gives the same hitting time because $x\ne a$.
+
+The two first directions for NB have conditional mean lengths $1$ and
+$25$. In the electrical calculation $(V_A,V_B,V_x)=(16,31,127)/143$,
+giving $(7\cdot127+22\cdot31+17\cdot16)/143=1843/143$.
+For comparison, the exact first-step systems on this graph give the
+following two rows, both with target $a=1$:
+\[
+\begin{array}{lcc}
+ \text{initial vertex}&\text{NB}&\text{SRW}\\ \hline
+ 2 &13&1843/143\\[2pt]
+ \text{drawn from }\pi&1087/72&51907/858
+\end{array}
+\]
+The path argument in \cite[Sec.~6]{TR} removes retractions from a walk
+stopped at its target and identifies the resulting path law with the FIFO
+law. This identification already fails on a triangle $x,z,a$. Before SRW
+hits $a$ it alternates between $x$ and $z$. After erasing immediate
+reversals the path is $x,a$ with probability
+$\sum_{k\ge0}2^{-(2k+1)}=2/3$. The fresh NB walk takes $x,a$ with
+probability $1/2$. The triangle tests the path-law step. The strict
+hitting-time counterexample is Proposition~\ref{prop:theta}.
+
+\section{A positive identity for stationary starts}\label{sec:energy}
+Index the $2m$ oriented-edge states by $(i,j)$, with $i$ the current vertex
+and $j$ its predecessor. On real functions of these states use the uniform
+probability inner product. Let $P$ be orthogonal projection onto functions
+of $i$ alone (averaging over $j\sim i$), let $Q=I-P$ and set
+$(Jw)(i,j)=w(j,i)$. We identify $\ran P$ with vertex functions in
+$L^2(\pi)$. The operator $J$ is a self-adjoint isometry.
+
+On $\ran Q$ let $R$ multiply by $d_i-1$. Its inverse is well defined:
+the fibre of $\ran Q$ at a leaf is zero. Write $S=P-R^{-1}Q$.
+On each fibre of degree at least two, $S$ has zero diagonal and off-diagonal
+entries $1/(d_i-1)$. At a leaf it is the identity. The transition on
+functions of the edge state is $F=SJ$. A fictitious predecessor chosen
+uniformly conditional on $i$ reproduces the uniform first step, including
+at a leaf.
+
+The full edge chain is doubly stochastic. Each closed communicating class
+projects onto every vertex: if it contains $(i,j)$, a predecessor in the
+class has current vertex $j$, and every other neighbour of $i$ can occur
+as the next current vertex. Its projected vertex set is therefore closed
+under adjacency. Connectedness and finite-state recurrence imply that the
+mean time to hit any vertex is finite from every edge state.
+
+Use the block operators
+\[
+ L=I-PJP\ \text{on }\ran P,\qquad B=QJP:\ran P\to\ran Q,\qquad
+ C=R+QJQ\ \text{on }\ran Q .
+\]
+Both $L$ and $C$ are positive semidefinite. Indeed
+$\ip z{Lz}=(2m)^{-1}\sum_{\{i,j\}\in E}(z_i-z_j)^2$ for vertex
+functions, and $R\ge I$ on $\ran Q$. The kernel of $L$ consists of constants.
+
+Fix $a$. Let $w(i,j)$ be the NB mean time to hit $a$ from the edge state,
+with $w=0$ over $a$. Put $u=Pw$, $v=Qw$ and
+$b=\one-\one_{\{i=a\}}/\pi_a$. Thus $u_i=H^\nb_{ia}$. The first-step
+equation $w=\one+Fw$ away from $a$ gives the full-space identities
+\begin{equation}\label{eq:block}
+ Lu-B^*v=b,\qquad Bu+Cv=e,\qquad e=\one_{\{i=a\}} QJw .
+\end{equation}
+The left-hand side of the first equation equals $1$ off $a$ and has
+global mean zero because $L\one=B\one=0$. For the second identity, apply
+$Q$ to the recurrence and multiply by $R$ off $a$. On the target fibre
+$v=0$. If $r_{aj}$ denotes the mean positive return time to $a$ conditional
+on first stepping to $j$, then $r_{aj}=1+w(j,a)$. Consequently
+\begin{equation}\label{eq:variance}
+ \|e\|^2=\pi_a\,\var_{j\ {\rm uniform\ in}\ N(a)}(r_{aj}).
+\end{equation}
+
+\begin{proof}[Proof of Theorem~\ref{thm:start}]
+For $h_i=H^\sr_{ia}$ the ordinary recurrence gives $Lh=b$ and $h_a=0$.
+Since $u_a=v(a,\cdot)=0$ and $e$ is supported over $a$,
+\eqref{eq:block} implies $t^\nb_a=\ip b u=\ip u{Lu}+\ip v{Cv}$.
+Now expand the first term on the right in
+\begin{equation}\label{eq:first}
+ t^\sr_a-t^\nb_a=\ip{h-u}{L(h-u)}+\ip v{Cv}\ \ge0 .
+\end{equation}
+If equality holds, then $h=u$ since both vanish at $a$, and $Cv=0$.
+Equation~\eqref{eq:block} would imply $Bh=0$ off $a$. If a neighbour
+$i$ of $a$ has another neighbour $k$, then $h_a=0<h_k$, so centring
+the neighbour values at $i$ gives $(Bh)(i,\cdot)\ne0$. Conversely, if
+every neighbour of $a$ is a leaf, connectedness makes $G$ a star with
+centre $a$. Both walks hit $a$ in one step from every other vertex.
+When $|V|\ge3$ some vertex has a neighbour of degree at least two.
+Averaging over $a$ gives the strict comparison of the constants.
+\end{proof}
+
+\section{The gap between two vertex Kemeny constants}\label{sec:trace}
+In this section assume $\delta=\min_i d_i\ge2$ and that $G$ is not a
+cycle. The full edge chain is then irreducible \cite[Lemma~3.1]{OW}.
+Let $W$ project onto the global constants and $Z=(I-F+W)^{-1}$.
+This inverse also exists for an irreducible periodic chain. Let
+$Z_v=PZP|_{\ran P}$ and put $\kp=\tr(Z_v)-1$. In the forward-edge
+convention of \cite[Def.~3.6]{BKKS}, the edge transition has matrix
+$JS=F^\top$ in the port indices used here. Each compressed diagonal
+entry is the sum over the corresponding $d_a$-by-$d_a$ block divided by
+$d_a$, which is invariant under transpose. Thus this $\kp$ agrees with
+their projected fundamental-matrix constant.
+
+\begin{theorem}\label{thm:trace}
+One has $\kp\le\kh$, with equality exactly when $r_{aj}$ is independent
+of $j$ at each $a$. Put $\Delta=\max_i d_i$ and
+$V_r=\sum_a\pi_a^2\,\var_{j\ {\rm uniform\ in}\ N(a)}(r_{aj})$.
+Let $\ell$ be the greatest length of a maximal chain whose internal
+vertices have degree two and whose endpoints have degree at least three,
+allowing both endpoints to coincide. Then
+\[
+ \frac{V_r}{\Delta}\ \le\ \kh-\kp\ \le\ 2\ell V_r .
+\]
+When $\delta>2$, the upper bound $V_r/(\delta-2)$ also holds.
+\end{theorem}
+
+\begin{proof}
+For the same target $a$ as in \eqref{eq:block}, take $w_0=Zb$ plus a
+constant chosen so that $u_0(a)=0$, with $u_0=Pw_0$, $v_0=Qw_0$.
+The full Poisson equation $(I-F)w_0=b$ gives
+$Lu_0-B^*v_0=b$ and $Bu_0+Cv_0=0$.
+Since $Z\one=\one$ and $Z$ preserves global means, expansion of
+$\ip b{Zb}$ gives $\ip b{u_0}=(Z_v)_{aa}/\pi_a-1$.
+For $\xi=u-u_0$ and $\eta=v-v_0$, subtraction yields
+$L\xi=B^*\eta$ and $B\xi+C\eta=e$. Self-adjointness gives
+\[
+ \ip b\xi=\ip{u_0}{L\xi}-\ip{v_0}{B\xi}
+         =-\ip{v_0}{C\eta+B\xi}
+         =\ip\eta e ,
+\]
+where $\ip v e=0$. Hence the targetwise gap has the identity
+\begin{equation}\label{eq:second}
+ t^\nb_a-\big((Z_v)_{aa}/\pi_a-1\big)
+   =\ip\eta e=\ip\xi{L\xi}+\ip\eta{C\eta}\ \ge0 .
+\end{equation}
+Equality implies $L\xi=C\eta=0$, so $\xi$ is constant and
+$e=B\xi+C\eta=0$. Conversely $e=0$ implies equality. Equation
+\eqref{eq:variance} and averaging with weights $\pi_a$ give the
+claimed criterion.
+
+For the bounds, put $t=QJ(\xi+\eta)$. The equation $L\xi=B^*\eta$
+gives $PJ(\xi+\eta)=\xi$, so $J(\xi+\eta)=\xi+t$. Since $J$ is an
+isometry and the two summands on either side are orthogonal,
+$\|t\|=\|\eta\|$. Write $s=(\eta+t)/2$, $c=(\eta-t)/2$, and let $D$
+multiply by $d_i$ on each fibre. Then $s\perp c$ and
+\[
+ e=(D-2I)\eta+2s,\qquad
+ g:=\ip\eta e=\ip\eta{(D-2I)\eta}+2\|s\|^2 .
+\]
+For each oriented edge with current vertex $i$, weighted Cauchy--Schwarz
+gives $((d_i-2)\eta+2s)^2\le d_i((d_i-2)\eta^2+2s^2)$.
+Summing yields $\|e\|^2\le\Delta g$. If $\delta>2$, we also have
+$g\ge(\delta-2)\|\eta\|^2$. Together with
+$g^2\le\|\eta\|^2\|e\|^2$ this gives $(\delta-2)g\le\|e\|^2$.
+
+To handle degree two, observe that $2c=(I-J)(\xi+\eta)$, hence
+$Jc=-c$. Also $Pc=0$. The magnitude of this antisymmetric flow is
+therefore constant along each degree-two chain. Write $f_H$ for the
+restriction to states whose current vertex has degree at least three,
+extended by zero. A chain of length $k$ contributes $2k$ oriented edges
+and two endpoint states, even when its two endpoints coincide. Thus
+$\|c\|^2\le\ell\|c_H\|^2$. Using $c=\eta-s$ gives
+\[
+ \|\eta\|^2=\|c\|^2+\|s\|^2
+ \le 2\ell\|\eta_H\|^2+(2\ell+1)\|s\|^2\le 2\ell g .
+\]
+The last inequality uses $d_i-2\ge1$ on $H$ and $\ell\ge1$.
+It follows that $g\le2\ell\|e\|^2$. Averaging over $a$ in
+\eqref{eq:variance} and \eqref{eq:second} yields the stated bounds.
+\end{proof}
+
+\paragraph{Formal verification.}
+The supplement contains Lean~4.19.0 proofs with mathlib v4.19.0.
+For Theorem~\ref{thm:start}, the \texttt{Walks} namespace contains
+\texttt{fixed\_target\_comparison} and \texttt{stationary\_limits}.
+Together they give the comparison, equality
+criterion and convergence of the degree-weighted finite-horizon means.
+\texttt{Kemeny.double\_average} gives the strict comparison except on
+$K_2$. For Proposition~\ref{prop:theta}, \texttt{Theta.means} verifies
+the two formulas by first-step equations at the terminals and at every
+interior position. \texttt{Theta.square\_family} proves the ratio limit
+along $q=p^2$. The separately encoded 23-vertex graph is checked in
+\texttt{Witness.lean}.
+
+In \texttt{Kemeny.lean}, the order and equality criterion of
+Theorem~\ref{thm:trace} appear in \texttt{comparison\_\allowbreak and\_\allowbreak equality}.
+The two bounds involving the maximum degree and the corridor length appear
+in \texttt{variance\_\allowbreak bounds}. The sharper estimate for minimum degree
+above two appears in \texttt{min\_\allowbreak degree\_\allowbreak bound}. The proof constructs the inverse defining
+$\kp$ and checks that compression gives the same diagonal in the
+forward-edge convention. See \texttt{projected\_trace} in \texttt{Forward}.
+The supplement includes the package configuration and the kernel's
+axiom reports for the main statements.
+
+\paragraph{Exact numerical checks.}
+The supplementary Python programs construct the finite graphs from their
+edge sets. One solves the absorbing first-step systems by rational
+elimination. The other sums the survival probabilities from the killed
+transition matrix using Newton's identities and checks every first-step
+residual exactly. These checks use only the Python standard library.
+
+\section*{Use of generative AI}
+OpenAI Codex (GPT-6) was used to derive the arguments, search for and check
+the counterexample, implement the exact verification, investigate earlier
+work, formalize the results in Lean, and draft and revise the manuscript.
+
+\begin{thebibliography}{9}
+\bibitem{ADGL} K. Altisen, S. Devismes, A. Gerbaud and P. Lafourcade,
+Analysis of random walks using tabu lists, in \emph{Structural Information
+and Communication Complexity}, LNCS 7355, Springer, 2012, 254--266.
+\href{https://doi.org/10.1007/978-3-642-31104-8_22}{Publisher}.
+\href{https://www-verimag.imag.fr/PUBLIS/uploads/cizib1712.pdf}{Author version}.
+\bibitem{TR} K. Altisen, S. Devismes, A. Gerbaud and P. Lafourcade,
+\emph{Comparisons of mean hitting times for tabu random walks on finite
+graphs}, Verimag Research Report TR-2012-6, 2012.
+\href{https://www-verimag.imag.fr/TR/TR-2012-6.pdf}{Technical report}.
+\bibitem{BFG} J. Breen, N. Faught, C. Glover, M. Kempton, A. Knudson and
+A. Oveson, Kemeny's constant for nonbacktracking random walks,
+\emph{Random Structures Algorithms} \textbf{63} (2023), 343--363.
+\href{https://doi.org/10.1002/rsa.21144}{doi:10.1002/rsa.21144}.
+\bibitem{BKKS} J. Breen, M. Kempton, A. Knudson and M. Shumway,
+On defining Kemeny's constant for non-backtracking random walks,
+\emph{Linear Algebra Appl.} (2026).
+\href{https://doi.org/10.1016/j.laa.2026.02.034}{doi:10.1016/j.laa.2026.02.034}.
+Section and question numbers here follow
+\href{https://arxiv.org/html/2510.06650v1}{arXiv:2510.06650v1}.
+\bibitem{FTT} D. Fasino, A. Tonetto and F. Tudisco, Hitting times for
+second-order random walks, \emph{Eur. J. Appl. Math.} \textbf{34}
+(2023), 642--666.
+\href{https://doi.org/10.1017/S0956792522000213}{doi:10.1017/S0956792522000213}.
+\bibitem{Neal} R. M. Neal, Improving asymptotic variance of MCMC estimators:
+non-reversible chains are better, Technical Report 0406, Department of
+Statistics, University of Toronto, 2004.
+\href{https://arxiv.org/abs/math/0407281}{arXiv:math/0407281}.
+\bibitem{OW} R. Ortner and W. Woess, Non-backtracking random walks and
+cogrowth of graphs, \emph{Canad. J. Math.} \textbf{59} (2007), 828--844.
+\href{https://doi.org/10.4153/CJM-2007-035-1}{doi:10.4153/CJM-2007-035-1}.
+\end{thebibliography}
+\end{document}
